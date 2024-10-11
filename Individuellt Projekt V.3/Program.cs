@@ -33,7 +33,7 @@
         //Fixa så det behövs lösenord för när jag vill dra ut pengar [Klar]
         static bool Login(out decimal[] accounts, out string userName)
         {
-            accounts = new decimal[3]; // Initialize accounts
+            accounts = new decimal[5]; // Initialize accounts with five slots
             userName = "";
             string password;
             int failedLoginAttempts = 0;
@@ -73,24 +73,38 @@
                 case "Filip Oldin":
                     accounts[0] = 30000.30m; // Lönekonto
                     accounts[1] = 20000.10m; // Sparkonto
+                    accounts[2] = 3000.75m;   // Semesterkonto                         // 
+                    accounts[4] = 5000.00m;  // Gamingkonto
                     break;
                 case "Anna Holgersson":
                     accounts[0] = 25000.25m; // Lönekonto
-                    break; // Only one account for Anna
+                    accounts[1] = 5000.50m;   // Sparkonto
+                    accounts[2] = 3000.75m;   // Semesterkonto
+                    accounts[3] = 2000.00m;    // Barnkonto
+                    accounts[4] = 1500.00m;    //"Gamingkonto"
+                    break;
                 case "Tobbe Rikardsson":
                     accounts[0] = 40000.34m; // Lönekonto
-                    accounts[1] = 8000.45m;   // Semesterkonto
+                    accounts[2] = 2000.00m;    // Sparkonto
+                    accounts[3] = 500.00m;     // Barnkonto
+                    accounts[4] = 1200.00m;    // Gamingkonto"
                     break;
                 case "Kent Käll":
-                    accounts[0] = 15000.65m; // Lönekonto
                     accounts[1] = 1000.78m;   // Sparkonto
+                    accounts[2] = 500.00m;     // Semesterkonto
+                    accounts[4] = 3000.00m;    // Gamingkonto"
                     break;
                 case "Eva Hobert":
                     accounts[0] = 18000.53m; // Lönekonto
                     accounts[1] = 15000.73m;  // Semesterkonto
+                    accounts[3] = 500.00m;     // Barnkonto
+
                     break;
                 default:
-                    accounts[0] = accounts[1] = accounts[2] = accounts[3] = accounts[4] = 0; // Default case, no money
+                    for (int i = 0; i < accounts.Length; i++)
+                    {
+                        accounts[i] = 0; // Default case, no money
+                    }
                     break;
             }
         }
@@ -146,13 +160,13 @@
         static void DisplayBalances(decimal[] accounts)
         {
             Console.Clear();
-            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto" };
+            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto", "Barnkonto", "Gamingkonto" };
 
             for (int i = 0; i < accounts.Length; i++)
             {
                 if (accounts[i] > 0) // Only display accounts with a positive balance
                 {
-                    Console.WriteLine($"{accountNames[i]}: {accounts[i]} kr");
+                    Console.WriteLine($"{accountNames[i]}: {accounts[i]:0.00} kr");
                 }
             }
         }
@@ -160,14 +174,14 @@
         static void TransferFunds(decimal[] accounts)
         {
             Console.WriteLine("Överföring mellan konton");
-            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto" };
+            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto", "Barnkonto", "Gamingkonto" };
 
             Console.WriteLine("Välj ett konto att överföra från:");
             for (int i = 0; i < accounts.Length; i++)
             {
                 if (accounts[i] > 0) // Only show accounts with a positive balance
                 {
-                    Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]} kr");
+                    Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                 }
             }
 
@@ -179,7 +193,7 @@
                 {
                     if (accounts[i] > 0 && i != fromAccount) // Show only different accounts with positive balance
                     {
-                        Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]} kr");
+                        Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                     }
                 }
 
@@ -213,14 +227,14 @@
         static void WithdrawMoney(decimal[] accounts, string userName)
         {
             Console.WriteLine("Ta ut pengar");
-            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto" };
+            string[] accountNames = { "Lönekonto", "Sparkonto", "Semesterkonto", "Barnkonto", "Gamingkonto" };
 
             Console.WriteLine("Välj konto att ta ut pengar från:");
             for (int i = 0; i < accounts.Length; i++)
             {
                 if (accounts[i] > 0) // Only show accounts with a positive balance
                 {
-                    Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]} kr");
+                    Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                 }
             }
 
@@ -239,7 +253,7 @@
                         if (withdrawalAmount <= accounts[accountChoice]) // Withdraw from the selected account
                         {
                             accounts[accountChoice] -= withdrawalAmount; // Deduct from the chosen account
-                            Console.WriteLine($"Uttag av {withdrawalAmount} kr genomfört från {accountNames[accountChoice]}. Nytt saldo: {accounts[accountChoice]} kr");
+                            Console.WriteLine($"Uttag av {withdrawalAmount} kr genomfört från {accountNames[accountChoice]}. Nytt saldo: {accounts[accountChoice]:0.00} kr");
                         }
                         else
                         {
@@ -282,17 +296,16 @@
         {
             var users = new Dictionary<string, string>
         {
-            { "Filip Oldin", "hemlis123" },
-            { "Anna Holgersson", "hemlis1234" },
-            { "Tobbe Rikardsson", "hemlis12345" },
-            { "Kent Käll", "hemlis123456" },
-            { "Eva Hobert", "hemlis1234567" }
+            { "Filip Oldin", "123" },
+            { "Anna Holgersson", "1234" },
+            { "Tobbe Rikardsson", "12345" },
+            { "Kent Käll", "123456" },
+            { "Eva Hobert", "1234567" }
         };
 
             return users.TryGetValue(userName, out string correctPassword) && correctPassword == password;
         }
     }
-
-
 }
+
 
