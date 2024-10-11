@@ -28,7 +28,7 @@
         //Fixa login [Klar]
         //Fixa moneytransfer [Klar]
         //Fixa så man återvänder till huvudmenyn efter att man loggar ut [Klar]
-        //Fixa så att alla konton har olika namn
+        //Fixa så att alla konton har olika namn [Klar]
         //Fixa så alla konton har pengar och öre [Klar]
         //Fixa så det behövs lösenord för när jag vill dra ut pengar [Klar]
         static bool Login(out decimal[] accounts, out string userName)
@@ -72,15 +72,13 @@
             {
                 case "Filip Oldin":
                     accounts[0] = 30000.30m; // Lönekonto
-                    accounts[1] = 20000.10m; // Sparkonto
-                    accounts[2] = 3000.75m;   // Semesterkonto                         // 
+                    accounts[1] = 20000.10m; // Sparkonto                       
                     accounts[4] = 5000.00m;  // Gamingkonto
                     break;
                 case "Anna Holgersson":
                     accounts[0] = 25000.25m; // Lönekonto
                     accounts[1] = 5000.50m;   // Sparkonto
                     accounts[2] = 3000.75m;   // Semesterkonto
-                    accounts[3] = 2000.00m;    // Barnkonto
                     accounts[4] = 1500.00m;    //"Gamingkonto"
                     break;
                 case "Tobbe Rikardsson":
