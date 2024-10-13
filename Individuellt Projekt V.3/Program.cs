@@ -9,16 +9,16 @@
         {
             while (true)
             {
-                // Handle login process
+                
                 if (Login(out decimal[] accounts, out string userName))
                 {
-                    // If login is successful, show the main menu
+                    
                     ShowMainMenu(accounts, userName);
                 }
                 else
                 {
                     Console.WriteLine("Max antal inloggningsförsök nått. Försök igen senare.");
-                    break; // Exit if login fails after maximum attempts
+                    break; 
                 }
             }
         }
@@ -54,7 +54,7 @@
                     InitializeAccounts(userName, accounts);
                     Console.Clear();
                     Console.WriteLine("Du är inloggad!");
-                    return true; // Successful login
+                    return true; 
                 }
                 else
                 {
@@ -62,12 +62,12 @@
                     Console.WriteLine($"Fel inloggning. Försök kvar: {maxLoginAttempts - failedLoginAttempts}");
                 }
             }
-            return false; // Return false if login fails
+            return false;
         }
 
         static void InitializeAccounts(string userName, decimal[] accounts)
         {
-            // Initialize accounts based on user
+            // Konton
             switch (userName)
             {
                 case "Filip Oldin":
@@ -101,7 +101,7 @@
                 default:
                     for (int i = 0; i < accounts.Length; i++)
                     {
-                        accounts[i] = 0; // Default case, no money
+                        accounts[i] = 0; 
                     }
                     break;
             }
@@ -135,7 +135,7 @@
                         case 4:
                             Console.WriteLine("Loggar ut! Välkommen åter");
                             Console.Clear();
-                            return; // Exit the main menu loop to allow for new login
+                            return; 
                         case 5:
                             Console.WriteLine("Stänger programmet...");
                             Environment.Exit(0);
@@ -162,7 +162,7 @@
 
             for (int i = 0; i < accounts.Length; i++)
             {
-                if (accounts[i] > 0) // Only display accounts with a positive balance
+                if (accounts[i] > 0) // Visar hur mycket sitter på kontona
                 {
                     Console.WriteLine($"{accountNames[i]}: {accounts[i]:0.00} kr");
                 }
@@ -177,7 +177,7 @@
             Console.WriteLine("Välj ett konto att överföra från:");
             for (int i = 0; i < accounts.Length; i++)
             {
-                if (accounts[i] > 0) // Only show accounts with a positive balance
+                if (accounts[i] > 0) 
                 {
                     Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                 }
@@ -185,11 +185,11 @@
 
             if (int.TryParse(Console.ReadLine(), out int fromAccount) && fromAccount >= 1 && fromAccount <= accounts.Length && accounts[fromAccount - 1] > 0)
             {
-                fromAccount--; // Convert to zero-based index
+                fromAccount--; 
                 Console.WriteLine("Välj ett konto att överföra till:");
                 for (int i = 0; i < accounts.Length; i++)
                 {
-                    if (accounts[i] > 0 && i != fromAccount) // Show only different accounts with positive balance
+                    if (accounts[i] > 0 && i != fromAccount) 
                     {
                         Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                     }
@@ -197,7 +197,7 @@
 
                 if (int.TryParse(Console.ReadLine(), out int toAccount) && toAccount >= 1 && toAccount <= accounts.Length && toAccount - 1 != fromAccount)
                 {
-                    toAccount--; // Convert to zero-based index
+                    toAccount--;
                     Console.WriteLine("Ange ett belopp att överföra:");
 
                     if (decimal.TryParse(Console.ReadLine(), out decimal transferAmount) && transferAmount > 0)
@@ -230,7 +230,7 @@
             Console.WriteLine("Välj konto att ta ut pengar från:");
             for (int i = 0; i < accounts.Length; i++)
             {
-                if (accounts[i] > 0) // Only show accounts with a positive balance
+                if (accounts[i] > 0) 
                 {
                     Console.WriteLine($"{i + 1}. {accountNames[i]} - Saldo: {accounts[i]:0.00} kr");
                 }
@@ -238,7 +238,7 @@
 
             if (int.TryParse(Console.ReadLine(), out int accountChoice) && accountChoice >= 1 && accountChoice <= accounts.Length && accounts[accountChoice - 1] > 0)
             {
-                accountChoice--; // Convert to zero-based index
+                accountChoice--; 
                 Console.Write("Skriv ditt lösenord för att bekräfta uttaget: ");
                 string password = Console.ReadLine();
 
@@ -248,9 +248,9 @@
 
                     if (decimal.TryParse(Console.ReadLine(), out decimal withdrawalAmount) && withdrawalAmount > 0)
                     {
-                        if (withdrawalAmount <= accounts[accountChoice]) // Withdraw from the selected account
+                        if (withdrawalAmount <= accounts[accountChoice]) 
                         {
-                            accounts[accountChoice] -= withdrawalAmount; // Deduct from the chosen account
+                            accounts[accountChoice] -= withdrawalAmount; 
                             Console.WriteLine($"Uttag av {withdrawalAmount} kr genomfört från {accountNames[accountChoice]}. Nytt saldo: {accounts[accountChoice]:0.00} kr");
                         }
                         else
